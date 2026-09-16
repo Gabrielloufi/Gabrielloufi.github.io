@@ -268,6 +268,12 @@ section + section { border-top: 1px solid var(--border); }
 .pub__venue em { font-style: italic; }
 .pub__links { display: flex; gap: 16px; flex-wrap: wrap; font-family: var(--font-mono); font-size: .8rem; }
 
+.bullets { margin: 0 0 1.1em; padding-left: 20px; color: var(--muted); }
+.bullets li { margin-bottom: 6px; }
+.bullets li::marker { color: var(--pink-dim); }
+.subhead { font-family: var(--font-mono); font-size: .78rem; letter-spacing: .12em;
+           text-transform: uppercase; color: var(--violet); margin: 26px 0 12px; font-weight: 500; }
+
 /* ------------------------------------------------------------- skills --- */
 
 .skill-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px 34px; }
