@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects &mdash; Gabriel Loureiro Figueira</title>
+<meta name="description" content="Machine learning and software projects: churn prediction pipelines, MLOps infrastructure, and self-hosted applications.">
+<link rel="canonical" href="https://gabrielloufi.github.io/projects.html">
+<meta property="og:title" content="Projects &mdash; Gabriel Loureiro Figueira">
+<meta property="og:description" content="Machine learning and software projects: churn prediction pipelines, MLOps infrastructure, and self-hosted applications.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gabrielloufi.github.io/projects.html">
+<meta name="theme-color" content="#0a0a0c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="nav__brand" href="index.html">Gabriel L. Figueira <span>// data science</span></a>
+    <ul class="nav__links">
+      <li><a href="index.html">home</a></li>
+      <li><a href="projects.html" aria-current="page">projects</a></li>
+      <li><a href="publications.html">publications</a></li>
+      <li><a href="cv.html">cv</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" style="padding-bottom:0">
+    <div class="wrap">
+      <p class="kicker">Portfolio</p>
+      <h1>Projects</h1>
+      <p class="hero__lead">
+        Four things I built and what each one was actually about. Where the repository is public,
+        the link goes to the code &mdash; the READMEs carry the decision logs.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+
+      <article class="entry">
+        <div class="entry__side">2026 &middot; Team project</div>
+        <div>
+          <h3>Telco Churn Prediction Pipeline</h3>
+          <p class="entry__org">Python &middot; scikit-learn &middot; PyTorch &middot; MLflow &middot; FastAPI &middot; Airflow</p>
+          <p>
+            A telecom operator losing subscribers wants to know who is about to leave. The model is
+            the easy part; the project is the pipeline around it.
+          </p>
+          <ul>
+            <li>
+              One <code>ColumnTransformer</code> holds every fitted transformation, so preprocessing
+              travels with the model as a single artefact and the training split cannot leak into
+              validation.
+            </li>
+            <li>
+              The decision threshold sits at 0.3, not 0.5. A false negative is a customer who
+              cancels while nobody intervenes; a false positive costs one retention offer. The
+              asymmetry belongs in the threshold, and the reasoning is written down in the repo.
+            </li>
+            <li>
+              A PyTorch MLP (64&rarr;32, early stopping) was trained and tracked beside the
+              baselines. It tied with logistic regression, so logistic regression shipped &mdash;
+              interpretable, cheap, and one less thing to explain to stakeholders.
+            </li>
+            <li>
+              <code>pandera</code> schemas act as a data contract for training and batch scoring
+              alike; FastAPI serves <code>/predict</code> with Pydantic validation and latency
+              logging; an Airflow DAG scores the full base daily as the primary deployment shape.
+            </li>
+          </ul>
+          <ul class="tags"><li>scikit-learn</li><li>PyTorch</li><li>MLflow</li><li>FastAPI</li><li>Airflow</li><li>pandera</li><li>pytest</li></ul>
+          <div class="card__links" style="margin-top:14px">
+            <a href="https://github.com/Gabrielloufi/telco-churn-challenge">Repository &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="entry__side">2026 &middot; Team project</div>
+        <div>
+          <h3>Purchase Propensity System</h3>
+          <p class="entry__org">Python &middot; DVC &middot; MLflow &middot; Docker &middot; Streamlit</p>
+          <p>
+            A predictive system for purchase propensity, built as an exercise in ML engineering
+            rather than in modelling: the interesting constraint was that any teammate should be
+            able to reproduce a result from a clean checkout.
+          </p>
+          <ul>
+            <li>DVC pipeline with explicit <code>preprocess &rarr; train</code> stages and versioned data.</li>
+            <li>Experiments tracked in MLflow, with trained models promoted through the Model Registry under semantic versions.</li>
+            <li>Random Forest classifier, unit-tested modules, ruff and a Makefile for the repetitive parts.</li>
+            <li>A Streamlit app for demos, containerised and deployed to Oracle Cloud with docker-compose.</li>
+          </ul>
+          <ul class="tags"><li>DVC</li><li>MLflow</li><li>scikit-learn</li><li>Docker</li><li>Streamlit</li><li>uv</li><li>pytest</li></ul>
+          <div class="card__links" style="margin-top:14px">
+            <a href="https://github.com/MunhozMCM/Tech-Challenge-02">Repository &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="entry__side">2026 &middot; Solo</div>
+        <div>
+          <h3>tatametube</h3>
+          <p class="entry__org">Python &middot; Flask &middot; SQLite &middot; ffmpeg &middot; three.js</p>
+          <p>
+            A self-hosted library for jiu-jitsu instructional videos &mdash; the part of the
+            collection no streaming service indexes properly. It runs on a Raspberry Pi at home and
+            is reachable from anywhere over Tailscale.
+          </p>
+          <ul>
+            <li>Flask application with session auth, a media pipeline over ffmpeg, and a browsable catalogue backed by SQLite.</li>
+            <li>Transcription and translation tooling that reconciles technique names across Portuguese, English and Japanese &mdash; the same move has three names and no canonical spelling.</li>
+            <li>A glossary and equivalence map for terminology, plus a 3D skeleton viewer built on GrappleMap position data.</li>
+          </ul>
+          <ul class="tags"><li>Flask</li><li>SQLite</li><li>ffmpeg</li><li>Whisper</li><li>three.js</li><li>Tailscale</li></ul>
+          <div class="card__links" style="margin-top:14px">
+            <span class="locked">Private repository &mdash; happy to walk through it on request</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="entry__side">2025 &middot; Solo</div>
+        <div>
+          <h3>couchPie</h3>
+          <p class="entry__org">Raspberry Pi &middot; Linux &middot; Docker &middot; Tailscale</p>
+          <p>
+            A portable media centre that turns a Raspberry Pi into something more useful than a
+            smart TV: Kodi as the interface, game streaming from a desktop over Moonlight, browser
+            apps in kiosk mode, network shares, and remote access over Tailscale.
+          </p>
+          <ul>
+            <li>Staged build-out &mdash; local entertainment hub first, then remote access, then home-automation integration.</li>
+            <li>Documented as a reproducible setup rather than a pile of shell history, so someone else can rebuild it.</li>
+          </ul>
+          <ul class="tags"><li>Raspberry Pi</li><li>Kodi</li><li>Moonlight</li><li>Docker</li><li>Tailscale</li></ul>
+          <div class="card__links" style="margin-top:14px">
+            <a href="https://github.com/Gabrielloufi/couchpie">Repository &rarr;</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">More</p>
+      <h2>Elsewhere</h2>
+      <p>
+        Everything public lives on <a href="https://github.com/Gabrielloufi">GitHub</a>. If a repository here is private and you
+        would like to see it, <a href="mailto:gabrielloufi@gmail.com">email me</a>.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <span>&copy; <span id="year">2026</span> Gabriel Loureiro Figueira</span>
+    <span>
+      <a href="https://github.com/Gabrielloufi">GitHub</a> ·
+      <a href="https://www.linkedin.com/in/gabrielloureirofigueira/">LinkedIn</a> ·
+      <a href="https://scholar.google.com/citations?user=BgbFjUEAAAAJ&hl=en">Scholar</a> ·
+      <a href="https://lattes.cnpq.br/5523755976674168">Lattes</a>
+    </span>
+  </div>
+</footer>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
